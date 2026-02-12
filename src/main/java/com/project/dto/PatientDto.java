@@ -1,22 +1,18 @@
-package com.project.entity;
+package com.project.dto;
 
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "patient")
-public class Patient {
+public class PatientDto {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long patientId;
 	private String patientName;
 	private int age;
 	private String gender;
 	private String contactNumber;
 	private String address;
-
 }

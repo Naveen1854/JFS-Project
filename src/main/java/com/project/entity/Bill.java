@@ -7,19 +7,19 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "bill")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Entity
+@Table(name = "bill")
 public class Bill {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long paymentId;
-    private double billAmount;
-    private LocalDate billDate;
-    private String paymentStatus;
-    
-    private Long patientId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long paymentId;
+	private double billAmount;
+	private LocalDate billDate;
+	private String paymentStatus;
+
+	private Long patientId;
 
 }
