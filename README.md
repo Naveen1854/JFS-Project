@@ -53,13 +53,19 @@ spring.application.name=hospital-management-system
 
 #1. database
 spring.datasource.url=jdbc:mysql://localhost:3306/hospitaldb?createDatabaseIfNotExist=true
+
 spring.datasource.username=root
+
 spring.datasource.password=yourpassword
+
 #2. hibernate
 spring.jpa.hibernate.ddl-auto=update
+
 spring.jpa.show-sql=true
+
 #3. server
 server.port=8181
+
 #4. console
 spring.output.ansi.enabled=always
 
