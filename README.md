@@ -39,7 +39,8 @@ Layered architecture
 
 
 ✅How to Run the Project
-----------------------
+-------------------------
+🎯Please fork the repository and create a pull request for any improvements.
 1. Clone the repository
      ✨ git clone https://github.com/Naveen1854/JFS-Project.git
 2. Open in IDE (IntelliJ / Eclipse / STS)
