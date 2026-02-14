@@ -5,18 +5,30 @@ import com.project.entity.Patient;
 
 public class PatientMapper {
 
-	public static PatientDto mapToDto(Patient patient) {
+    public static PatientDto mapToDto(Patient patient) {
 //		implement your code here
-		return null;
-	}
-	
-	
-	
-	
-	
 
-	public static Patient mapToDto(PatientDto patientDto) {
+        return new PatientDto(
+                patient.getPatientId(),
+                patient.getPatientName(),
+                patient.getAge(),
+                patient.getGender(),
+                patient.getContactNumber(),
+                patient.getAddress()
+        );
+    }
+
+
+    public static Patient mapToPatient(PatientDto patientDto) {
 //		implement your code here
-		return null;
-	}
+
+        return new Patient(
+                patientDto.getPatientId(),
+                patientDto.getPatientName(),
+                patientDto.getAge(),
+                patientDto.getGender(),
+                patientDto.getContactNumber(),
+                patientDto.getAddress()
+        );
+    }
 }

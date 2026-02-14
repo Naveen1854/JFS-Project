@@ -1,10 +1,6 @@
 package com.project.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +18,9 @@ public class Nurse {
 	private String phoneNumber;
 	private String emailId;
 
-//	private Department department;
+
+//	@ManyToOne
+//    @JoinColumn(name = "department_department_id")
+//    private Department department;
+
 }

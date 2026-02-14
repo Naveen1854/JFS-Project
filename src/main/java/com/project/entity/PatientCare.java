@@ -19,7 +19,6 @@ public class PatientCare {
 	private String careType;
 	private LocalDate careStartDate;
 	private LocalDate careEndDate;
-
 	private Long nurseId;
 	private Long patientId;
 }
