@@ -37,10 +37,8 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public Patient findPatientById(Long patientId) {
 		return patientRepository.findById(patientId)
-				.orElseThrow(() -> 
-						new PatientNotFoundException("Patient not found with ID: " + patientId));
+				.orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + patientId));
 	}
-
 
 	/**
 	 * update the patient by using oldPatient id
@@ -54,11 +52,10 @@ public class PatientServiceImpl implements PatientService {
 		existingPatient.setGender(newPatient.getGender());
 		existingPatient.setContactNumber(newPatient.getContactNumber());
 		existingPatient.setAddress(newPatient.getAddress());
-		
+
 		return savePatient(existingPatient);
 	}
-	
-	
+
 	/**
 	 * delete the patient by using patient id
 	 */
@@ -69,6 +66,55 @@ public class PatientServiceImpl implements PatientService {
 
 		patientRepository.deleteById(patientId);
 		return dbPatient;
+	}
+
+	// ---------------------------------------------
+	// SEARCH OPERATIONS
+	// ---------------------------------------------
+
+	@Override
+	public List<Patient> findPatientByName(String name) {
+		List<Patient> dbPatients = patientRepository.findByPatientName(name);
+		if (dbPatients.isEmpty()) {
+			throw new PatientNotFoundException("No patient found with name: " + name);
+		}
+		return dbPatients;
+	}
+
+	@Override
+	public Patient findPatientByPhone(String phoneNumber) {
+		Patient dbPatient = patientRepository.findByContactNumber(phoneNumber);
+		if (dbPatient == null) {
+			throw new PatientNotFoundException("Patient not found with phoneNumber: " + phoneNumber);
+		}
+		return dbPatient;
+	}
+
+	@Override
+	public List<Patient> findPatientByGender(String gender) {
+		List<Patient> dbPatients = patientRepository.findByGender(gender);
+		if(dbPatients.isEmpty()) {
+			throw new PatientNotFoundException("No patient found with gender: " + gender);
+		}
+		return dbPatients;
+	}
+
+	@Override
+	public List<Patient> findPatientByAgeBetween(int minAge, int maxAge) {
+		List<Patient> dbPatients = patientRepository.findByAgeBetween(minAge, maxAge);
+		if(dbPatients.isEmpty()) {
+			throw new PatientNotFoundException("No patients found between age " + minAge + " and " + maxAge);
+		}
+		return dbPatients;
+	}
+
+	@Override
+	public List<Patient> findPatientByAddress(String address) {
+		List<Patient> dbPatients = patientRepository.findByAddress(address);
+		if(dbPatients.isEmpty()) {
+			throw new PatientNotFoundException("No patient found with address: " + address);
+		}
+		return dbPatients;
 	}
 
 }
