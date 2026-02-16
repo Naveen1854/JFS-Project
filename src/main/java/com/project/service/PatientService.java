@@ -2,33 +2,32 @@ package com.project.service;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-
+import com.project.dto.PatientDto;
 import com.project.entity.Patient;
-import com.project.util.ErrorResponse;
 
 public interface PatientService {
 
-	public Patient savePatient(Patient patient);
+	public PatientDto savePatient(PatientDto patientDto);
 
-	public List<Patient> getAllPatients();
+	public List<PatientDto> getAllPatients();
 
-	public Patient findPatientById(Long patientId);
+	public PatientDto findPatientById(Long patientId);
 
-	public Patient updatePatientById(Long oldPatientId, Patient newPatient);
+	public PatientDto updatePatientById(Long patientId, PatientDto newPatientDto);
 
-	public Patient deletePatientById(Long patientId);
+	public PatientDto deletePatientById(Long patientId);
 
 	
 	
-	public List<Patient> findPatientByName(String name);
+	public List<PatientDto> findPatientByName(String name);
 
-	public Patient findPatientByPhone(String phoneNumber);
+	public PatientDto findPatientByPhone(String phoneNumber);
 
-	public List<Patient> findPatientByGender(String gender);
+	public List<PatientDto> findPatientByGender(String gender);
 
-	public List<Patient> findPatientByAgeBetween(int minAge, int maxAge);
+	public List<PatientDto> findPatientByAgeBetween(int minAge, int maxAge);
 
-	public List<Patient> findPatientByAddress(String address);
+	public List<PatientDto> findPatientByAddress(String address);
+
 
 }

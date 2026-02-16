@@ -1,6 +1,7 @@
 package com.project.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,7 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
 
 	List<Patient> findByPatientName(String name);
 
-	Patient findByContactNumber(String phoneNumber);
+	Optional<Patient> findByContactNumber(String phoneNumber);
 
 	List<Patient> findByGender(String gender);
 

@@ -2,119 +2,143 @@ package com.project.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.dto.PatientDto;
 import com.project.entity.Patient;
 import com.project.exception.PatientNotFoundException;
+import com.project.mapper.PatientMapper;
 import com.project.repository.PatientRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class PatientServiceImpl implements PatientService {
 
-	@Autowired
-	private PatientRepository patientRepository;
+	private final PatientRepository patientRepository;
 
-	/**
-	 * fetch all patients present inside db
+	private final PatientMapper patientMapper;
+
+	public PatientServiceImpl(PatientRepository patientRepository, PatientMapper patientMapper) {
+		this.patientRepository = patientRepository;
+		this.patientMapper = patientMapper;
+	}
+
+    /*
+	@Autowired
+	private  PatientRepository patientRepository;
+
+	@Autowired
+	private  PatientMapper patientMapper;
+    */
+
+
+	/*
+	 * fetch all patients present inside database
 	 */
 	@Override
-	public List<Patient> getAllPatients() {
-		return patientRepository.findAll();
+	public List<PatientDto> getAllPatients() {
+		List<Patient> dbPatients = patientRepository.findAll();
+		return patientMapper.toDtoList(dbPatients);
 	}
 
 	/**
 	 * save the patient into database
 	 */
 	@Override
-	public Patient savePatient(Patient patient) {
-		return patientRepository.save(patient);
+	public PatientDto savePatient(PatientDto patientDto) {
+		// DTO ➜ Entity
+		Patient patient = patientMapper.toEntity(patientDto);
+		Patient saved = patientRepository.save(patient);
+		// Entity ➜ DTO
+		return patientMapper.toDto(saved);
 	}
 
 	/**
 	 * find the patient by using patient id
 	 */
 	@Override
-	public Patient findPatientById(Long patientId) {
-		return patientRepository.findById(patientId)
+	public PatientDto findPatientById(Long patientId) {
+		Patient dbPatient = patientRepository.findById(patientId)
 				.orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + patientId));
+		return patientMapper.toDto(dbPatient);
 	}
 
 	/**
 	 * update the patient by using oldPatient id
 	 */
 	@Override
-	public Patient updatePatientById(Long oldPatientId, Patient newPatient) {
-		Patient existingPatient = patientRepository.findById(oldPatientId)
-				.orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + oldPatientId));
-		existingPatient.setPatientName(newPatient.getPatientName());
-		existingPatient.setAge(newPatient.getAge());
-		existingPatient.setGender(newPatient.getGender());
-		existingPatient.setContactNumber(newPatient.getContactNumber());
-		existingPatient.setAddress(newPatient.getAddress());
+	public PatientDto updatePatientById(Long patientId, PatientDto newPatientDto) {
 
-		return savePatient(existingPatient);
+		Patient existingPatient = patientRepository.findById(patientId)
+				.orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + patientId));
+
+//		existingPatient.setPatientName(newPatientDto.getPatientName());
+//		existingPatient.setAge(newPatientDto.getAge());
+//		existingPatient.setGender(newPatientDto.getGender());
+//		existingPatient.setContactNumber(newPatientDto.getContactNumber());
+//		existingPatient.setAddress(newPatientDto.getAddress());
+
+		patientMapper.updatePatientFromDto(newPatientDto, existingPatient);
+
+		Patient updatedPatient = patientRepository.save(existingPatient);
+
+		return patientMapper.toDto(updatedPatient);
 	}
 
 	/**
 	 * delete the patient by using patient id
 	 */
 	@Override
-	public Patient deletePatientById(Long patientId) {
+	public PatientDto deletePatientById(Long patientId) {
 		Patient dbPatient = patientRepository.findById(patientId)
 				.orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + patientId));
 
-		patientRepository.deleteById(patientId);
-		return dbPatient;
+		PatientDto dto = patientMapper.toDto(dbPatient);
+
+		patientRepository.delete(dbPatient);
+		return dto;
 	}
 
+	
+	
 	// ---------------------------------------------
 	// SEARCH OPERATIONS
 	// ---------------------------------------------
 
 	@Override
-	public List<Patient> findPatientByName(String name) {
+	public List<PatientDto> findPatientByName(String name) {
 		List<Patient> dbPatients = patientRepository.findByPatientName(name);
-		if (dbPatients.isEmpty()) {
-			throw new PatientNotFoundException("No patient found with name: " + name);
-		}
-		return dbPatients;
+
+		return patientMapper.toDtoList(dbPatients);
 	}
 
 	@Override
-	public Patient findPatientByPhone(String phoneNumber) {
-		Patient dbPatient = patientRepository.findByContactNumber(phoneNumber);
-		if (dbPatient == null) {
-			throw new PatientNotFoundException("Patient not found with phoneNumber: " + phoneNumber);
-		}
-		return dbPatient;
+	public PatientDto findPatientByPhone(String phoneNumber) {
+
+		Patient patient = patientRepository.findByContactNumber(phoneNumber)
+				.orElseThrow(() -> new PatientNotFoundException("Patient not found with phoneNumber: " + phoneNumber));
+
+		return patientMapper.toDto(patient);
 	}
 
 	@Override
-	public List<Patient> findPatientByGender(String gender) {
+	public List<PatientDto> findPatientByGender(String gender) {
 		List<Patient> dbPatients = patientRepository.findByGender(gender);
-		if(dbPatients.isEmpty()) {
-			throw new PatientNotFoundException("No patient found with gender: " + gender);
-		}
-		return dbPatients;
+		return patientMapper.toDtoList(dbPatients);
 	}
 
 	@Override
-	public List<Patient> findPatientByAgeBetween(int minAge, int maxAge) {
+	public List<PatientDto> findPatientByAgeBetween(int minAge, int maxAge) {
 		List<Patient> dbPatients = patientRepository.findByAgeBetween(minAge, maxAge);
-		if(dbPatients.isEmpty()) {
-			throw new PatientNotFoundException("No patients found between age " + minAge + " and " + maxAge);
-		}
-		return dbPatients;
+		return patientMapper.toDtoList(dbPatients);
 	}
 
 	@Override
-	public List<Patient> findPatientByAddress(String address) {
+	public List<PatientDto> findPatientByAddress(String address) {
 		List<Patient> dbPatients = patientRepository.findByAddress(address);
-		if(dbPatients.isEmpty()) {
-			throw new PatientNotFoundException("No patient found with address: " + address);
-		}
-		return dbPatients;
+		return patientMapper.toDtoList(dbPatients);
 	}
 
 }
