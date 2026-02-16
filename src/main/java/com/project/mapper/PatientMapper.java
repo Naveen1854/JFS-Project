@@ -20,10 +20,7 @@ public interface PatientMapper {
 	
 	// List<Entity> ➜ List<DTO>
 	List<PatientDto> toDtoList(List<Patient> patients);
-	
-	
-	
-	
+
 	// List<DTO> ➜ List<Entity> (optional)
 	List<Patient> toEntityList(List<PatientDto> patientDtos);
 	

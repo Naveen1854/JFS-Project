@@ -17,15 +17,13 @@ import jakarta.transaction.Transactional;
 public class PatientServiceImpl implements PatientService {
 
 	private final PatientRepository patientRepository;
-
 	private final PatientMapper patientMapper;
-
 	public PatientServiceImpl(PatientRepository patientRepository, PatientMapper patientMapper) {
 		this.patientRepository = patientRepository;
 		this.patientMapper = patientMapper;
 	}
 
-    /*
+    /**
 	@Autowired
 	private  PatientRepository patientRepository;
 
@@ -34,7 +32,7 @@ public class PatientServiceImpl implements PatientService {
     */
 
 
-	/*
+	/**
 	 * fetch all patients present inside database
 	 */
 	@Override
@@ -101,11 +99,12 @@ public class PatientServiceImpl implements PatientService {
 		return dto;
 	}
 
-	
-	
-	// ---------------------------------------------
-	// SEARCH OPERATIONS
-	// ---------------------------------------------
+
+    /**
+     * ---------------------------------------------
+     * SEARCH OPERATIONS
+     *---------------------------------------------
+     */
 
 	@Override
 	public List<PatientDto> findPatientByName(String name) {
