@@ -1,10 +1,13 @@
 package com.project.mapper;
 
+import java.util.List;
+
+import org.mapstruct.BeanMapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+
 import com.project.dto.AppointmentDto;
 import com.project.entity.Appointment;
-import org.mapstruct.MappingTarget;
-
-import java.util.List;
 
 public interface AppointmentMapper {
 
@@ -20,6 +23,7 @@ public interface AppointmentMapper {
 //    List<DTO> ➜ List<Entity>(optional)
     List<Appointment> toEntityList(List<AppointmentDto>  appointmentDtos);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateAppointmentFromDto(AppointmentDto appointmentDto, @MappingTarget Appointment entity);
 }
 
