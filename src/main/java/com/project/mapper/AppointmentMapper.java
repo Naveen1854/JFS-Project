@@ -3,12 +3,14 @@ package com.project.mapper;
 import java.util.List;
 
 import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import com.project.dto.AppointmentDto;
 import com.project.entity.Appointment;
 
+@Mapper(componentModel = "spring")
 public interface AppointmentMapper {
 
 //    Entity ➜ DTO

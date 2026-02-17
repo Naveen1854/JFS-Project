@@ -14,7 +14,7 @@ public interface AppointmentService {
 
 	public List<AppointmentDto> getAllAppointments();
 
-	public AppointmentDto updateAppointmentById(Long appintmwentId, AppointmentDto appointmentDto);
+	public AppointmentDto updateAppointmentById(Long appintmentId, AppointmentDto appointmentDto);
 
 	public AppointmentDto deleteAppointmentById(Long appointmentId);
 

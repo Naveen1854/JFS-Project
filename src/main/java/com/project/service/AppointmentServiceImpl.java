@@ -30,21 +30,19 @@ public class AppointmentServiceImpl implements AppointmentService {
 	 */
 	@Override
 	public AppointmentDto saveAppointment(AppointmentDto appointmentDto) {
-		
-		 // 1. Prevent past booking
-	    if (appointmentDto.getAppointmentDate().isBefore(LocalDate.now())) {
-	        throw new IllegalArgumentException("Appointment date cannot be in the past");
-	    }
-	    // 2. Prevent double booking
-	    boolean exists = appointmentRepository.existsByDoctorIdAndAppointmentDateAndAppointmentTime(
-	            appointmentDto.getDoctorId(),
-	            appointmentDto.getAppointmentDate(),
-	            appointmentDto.getAppointmentTime());
 
-	    if (exists) {
-	        throw new SlotAlreadyBookedException("Doctor already booked for this time slot");
-	    }
-		
+		// 1. Prevent past booking
+		if (appointmentDto.getAppointmentDate().isBefore(LocalDate.now())) {
+			throw new IllegalArgumentException("Appointment date cannot be in the past");
+		}
+		// 2. Prevent double booking
+		boolean exists = appointmentRepository.existsByDoctorIdAndAppointmentDateAndAppointmentTime(
+				appointmentDto.getDoctorId(), appointmentDto.getAppointmentDate(), appointmentDto.getAppointmentTime());
+
+		if (exists) {
+			throw new SlotAlreadyBookedException("Doctor already booked for this time slot");
+		}
+
 		// DTO ➜ Entity
 		Appointment appointment = appointmentMapper.toEntity(appointmentDto);
 		Appointment saved = appointmentRepository.save(appointment);
@@ -88,9 +86,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	@Override
 	public List<AppointmentDto> getAppointmentsByPatientId(Long patientId) {
-	List<Appointment> dbAppointments = appointmentRepository.findByPatientId(patientId);
-	return appointmentMapper.toDtoList(dbAppointments);
-		
+		List<Appointment> dbAppointments = appointmentRepository.findByPatientId(patientId);
+		return appointmentMapper.toDtoList(dbAppointments);
+
 	}
 
 	@Override
@@ -110,7 +108,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		List<Appointment> dbAppointments = appointmentRepository.findByStatus(status);
 		return appointmentMapper.toDtoList(dbAppointments);
 	}
-	
+
 	@Override
 	public List<AppointmentDto> getDoctorSchedule(Long doctorId, LocalDate date) {
 		List<Appointment> dbAppointments = appointmentRepository.findByDoctorIdAndAppointmentDate(doctorId, date);

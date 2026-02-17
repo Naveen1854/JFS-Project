@@ -1,7 +1,5 @@
 package com.project.util;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErrorResponseList<T> {
+public class SuccessResponse<T> {
 
 	private String message;
 	private int status;
-	private List<T> data;
+	private T data;
+
 	
 }

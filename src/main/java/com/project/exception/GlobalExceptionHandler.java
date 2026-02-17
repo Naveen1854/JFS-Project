@@ -1,5 +1,7 @@
 package com.project.exception;
 
+import java.time.LocalDateTime;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,15 +12,15 @@ import com.project.util.ErrorResponse;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-	@ExceptionHandler(PatientNotFoundException.class)
-	public ResponseEntity<ErrorResponse<String>> handlePatientNotFound(PatientNotFoundException ex) {
-		ErrorResponse<String> errorResponse = new ErrorResponse<>(
-				ex.getMessage(),
-				HttpStatus.NOT_FOUND.value(),
-				null
-			);
+    @ExceptionHandler(PatientNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePatientNotFound(PatientNotFoundException exception) {
 
-		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        ErrorResponse error = new ErrorResponse(
+                exception.getMessage(),
+                HttpStatus.NOT_FOUND.value(),
+                LocalDateTime.now()
+        );
 
-	}
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
 }

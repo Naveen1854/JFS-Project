@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.dto.PatientDto;
 import com.project.service.PatientService;
-import com.project.util.ErrorResponse;
+import com.project.util.SuccessResponse;
 
 @RestController
 @RequestMapping("/api/v1/patients")
@@ -41,11 +41,11 @@ public class PatientController {
     // POST /api/v1/patients
     // ---------------------------------------------
     @PostMapping
-    public ResponseEntity<ErrorResponse<PatientDto>> savePatient(@RequestBody PatientDto patientDto) {
+    public ResponseEntity<SuccessResponse<PatientDto>> savePatient(@RequestBody PatientDto patientDto) {
 
         PatientDto savedPatient = patientService.savePatient(patientDto);
 
-        ErrorResponse<PatientDto> response = new ErrorResponse<>(
+        SuccessResponse<PatientDto> response = new SuccessResponse<>(
                 "Patient saved successfully",
                 HttpStatus.CREATED.value(),
                 savedPatient
@@ -59,11 +59,11 @@ public class PatientController {
     // GET /api/v1/patients
     // ---------------------------------------------
     @GetMapping
-    public ResponseEntity<ErrorResponse<List<PatientDto>>> getAllPatients() {
+    public ResponseEntity<SuccessResponse<List<PatientDto>>> getAllPatients() {
 
         List<PatientDto> patients = patientService.getAllPatients();
 
-        ErrorResponse<List<PatientDto>> response = new ErrorResponse<>(
+        SuccessResponse<List<PatientDto>> response = new SuccessResponse<>(
                 "Patients fetched successfully",
                 HttpStatus.OK.value(),
                 patients
@@ -77,11 +77,11 @@ public class PatientController {
     // GET /api/v1/patients/{id}
     // ---------------------------------------------
     @GetMapping("/{patientId}")
-    public ResponseEntity<ErrorResponse<PatientDto>> findPatientById(@PathVariable Long patientId) {
+    public ResponseEntity<SuccessResponse<PatientDto>> findPatientById(@PathVariable Long patientId) {
 
         PatientDto dbPatient = patientService.findPatientById(patientId);
 
-        ErrorResponse<PatientDto> response = new ErrorResponse<>(
+        SuccessResponse<PatientDto> response = new SuccessResponse<>(
                 "Patient fetched successfully",
                 HttpStatus.OK.value(),
                 dbPatient
@@ -94,14 +94,14 @@ public class PatientController {
     // UPDATE PATIENT
     // PUT /api/v1/patients/{id}
     // ---------------------------------------------
-    @PutMapping("/{oldPatientId}")
-    public ResponseEntity<ErrorResponse<PatientDto>> updatePatientById(
+    @PutMapping("/{patientId}")
+    public ResponseEntity<SuccessResponse<PatientDto>> updatePatientById(
             @PathVariable Long patientId,
             @RequestBody PatientDto newPatientDto) {
 
         PatientDto updated = patientService.updatePatientById(patientId, newPatientDto);
 
-        ErrorResponse<PatientDto> response = new ErrorResponse<>(
+        SuccessResponse<PatientDto> response = new SuccessResponse<>(
                 "Patient updated successfully",
                 HttpStatus.OK.value(),
                 updated
@@ -115,11 +115,11 @@ public class PatientController {
     // DELETE /api/v1/patients/{id}
     // ---------------------------------------------
     @DeleteMapping("/{patientId}")
-    public ResponseEntity<ErrorResponse<PatientDto>> deletePatientById(@PathVariable Long patientId) {
+    public ResponseEntity<SuccessResponse<PatientDto>> deletePatientById(@PathVariable Long patientId) {
 
         PatientDto deleted = patientService.deletePatientById(patientId);
 
-        ErrorResponse<PatientDto> response = new ErrorResponse<>(
+        SuccessResponse<PatientDto> response = new SuccessResponse<>(
                 "Patient deleted successfully",
                 HttpStatus.OK.value(),
                 deleted
@@ -133,12 +133,12 @@ public class PatientController {
     // ---------------------------------------------
 
     // GET /api/v1/patients/search/name/Ravi
-    @GetMapping("/name/{name}")
-    public ResponseEntity<ErrorResponse<List<PatientDto>>> getPatientByName(@PathVariable String name) {
+    @GetMapping("/search/name/{name}")
+    public ResponseEntity<SuccessResponse<List<PatientDto>>> getPatientByName(@PathVariable String name) {
 
         List<PatientDto> patients = patientService.findPatientByName(name);
 
-        ErrorResponse<List<PatientDto>> response = new ErrorResponse<>(
+        SuccessResponse<List<PatientDto>> response = new SuccessResponse<>(
                 "Patients fetched by name",
                 HttpStatus.OK.value(),
                 patients
@@ -148,12 +148,12 @@ public class PatientController {
     }
 
     // GET /api/v1/patients/search/phone/9876543210
-    @GetMapping("/phone/{phone}")
-    public ResponseEntity<ErrorResponse<PatientDto>> getPatientByPhone(@PathVariable String phone) {
+    @GetMapping("/search/phone/{phone}")
+    public ResponseEntity<SuccessResponse<PatientDto>> getPatientByPhone(@PathVariable String phone) {
 
     	PatientDto patient = patientService.findPatientByPhone(phone);
 
-        ErrorResponse<PatientDto> response = new ErrorResponse<>(
+    	SuccessResponse<PatientDto> response = new SuccessResponse<>(
                 "Patient fetched by phone number",
                 HttpStatus.OK.value(),
                 patient
@@ -163,12 +163,12 @@ public class PatientController {
     }
 
     // GET /api/v1/patients/search/gender/male
-    @GetMapping("/gender/{gender}")
-    public ResponseEntity<ErrorResponse<List<PatientDto>>> getPatientByGender(@PathVariable String gender) {
+    @GetMapping("/search/gender/{gender}")
+    public ResponseEntity<SuccessResponse<List<PatientDto>>> getPatientByGender(@PathVariable String gender) {
 
         List<PatientDto> patients = patientService.findPatientByGender(gender);
 
-        ErrorResponse<List<PatientDto>> response = new ErrorResponse<>(
+        SuccessResponse<List<PatientDto>> response = new SuccessResponse<>(
                 "Patients fetched by gender",
                 HttpStatus.OK.value(),
                 patients
@@ -178,14 +178,14 @@ public class PatientController {
     }
 
     // GET /api/v1/patients/search/age?min=20&max=40
-    @GetMapping("/age")
-    public ResponseEntity<ErrorResponse<List<PatientDto>>> getPatientByAgeRange(
+    @GetMapping("/search/age")
+    public ResponseEntity<SuccessResponse<List<PatientDto>>> getPatientByAgeRange(
             @RequestParam int min,
             @RequestParam int max) {
 
         List<PatientDto> patients = patientService.findPatientByAgeBetween(min, max);
 
-        ErrorResponse<List<PatientDto>> response = new ErrorResponse<>(
+        SuccessResponse<List<PatientDto>> response = new SuccessResponse<>(
                 "Patients fetched by age range",
                 HttpStatus.OK.value(),
                 patients
@@ -195,12 +195,12 @@ public class PatientController {
     }
 
     // GET /api/v1/patients/search/address/bangalore
-    @GetMapping("/address/{address}")
-    public ResponseEntity<ErrorResponse<List<PatientDto>>> getPatientByAddress(@PathVariable String address) {
+    @GetMapping("/search/address/{address}")
+    public ResponseEntity<SuccessResponse<List<PatientDto>>> getPatientByAddress(@PathVariable String address) {
 
         List<PatientDto> patients = patientService.findPatientByAddress(address);
 
-        ErrorResponse<List<PatientDto>> response = new ErrorResponse<>(
+        SuccessResponse<List<PatientDto>> response = new SuccessResponse<>(
                 "Patients fetched by address",
                 HttpStatus.OK.value(),
                 patients
