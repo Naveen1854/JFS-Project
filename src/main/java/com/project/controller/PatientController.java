@@ -86,7 +86,6 @@ public class PatientController {
                 HttpStatus.OK.value(),
                 dbPatient
         );
-
         return ResponseEntity.ok(response);
     }
 

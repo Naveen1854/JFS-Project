@@ -44,6 +44,17 @@ public class AppointmentController {
 				);
 		return ResponseEntity.ok(response);
 	}
+
+    @GetMapping("/{appointmentId}")
+    public ResponseEntity<SuccessResponse<AppointmentDto>> findAppointmentById(Long appointmentId){
+        AppointmentDto dbAppointment = appointmentService.findAppointmentById(appointmentId);
+        SuccessResponse<AppointmentDto> response = new SuccessResponse<>(
+                "Appointment fetched Successfuly",
+                HttpStatus.OK.value(),
+                dbAppointment
+        );
+        return ResponseEntity.ok(response);
+    }
 }
 
 
