@@ -2,9 +2,52 @@ package com.project.mapper;
 
 import com.project.dto.BillDto;
 import com.project.entity.Bill;
+import org.mapstruct.Mapper;
 
-public class BillMapper {
+import java.util.List;
 
+@Mapper(componentModel = "spring")
+public interface BillMapper {
+
+    //    Entity ➜ DTO
+    BillDto toDto(Bill bill);
+
+    //    List<Entity> ➜ List<Dto>
+    List<BillDto> toDtoList(List<Bill> bills);
+
+    //    DTO ➜ Entity
+    Bill toEntity(BillDto billDto);
+
+    //    List<DTO> ➜ List<Entity>(optional)
+    List<Bill> toEntityList(List<BillDto> billDtos);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
     public static BillDto mapToDto(Bill bill) {
         return new BillDto(
                 bill.getPaymentId(),
@@ -24,4 +67,5 @@ public class BillMapper {
                 billDto.getPatientId()
         );
     }
+     */
 }

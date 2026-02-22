@@ -2,9 +2,46 @@ package com.project.mapper;
 
 import com.project.dto.PatientCareDto;
 import com.project.entity.PatientCare;
+import org.mapstruct.Mapper;
 
-public class PatientCareMapper {
+import java.util.List;
 
+@Mapper(componentModel = "spring")
+public interface PatientCareMapper {
+
+    //    Entity ➜ DTO
+    PatientCareDto toDto(PatientCare patientCare);
+
+    //    DTO ➜ Entity
+    PatientCare toEntity(PatientCareDto patientCareDto);
+
+    //    List<Entity> ➜ List<Dto>
+    List<PatientCareDto> toDtoList(List<PatientCare> patientCares);
+
+    //    List<DTO> ➜ List<Entity>(optional)
+    List<PatientCare> toEntityList(List<PatientCareDto> patientCaresDto);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
     public static PatientCareDto mapToDto(PatientCare patientCare){
         return new PatientCareDto(
           patientCare.getCareId(),
@@ -26,4 +63,5 @@ public class PatientCareMapper {
                 patientCareDto.getPatientId()
         );
     }
+     */
 }

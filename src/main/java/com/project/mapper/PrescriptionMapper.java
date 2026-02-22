@@ -2,9 +2,53 @@ package com.project.mapper;
 
 import com.project.dto.PrescriptionDto;
 import com.project.entity.Prescription;
+import org.mapstruct.Mapper;
 
-public class PrescriptionMapper {
+import java.util.List;
 
+@Mapper(componentModel = "spring")
+public interface PrescriptionMapper {
+
+
+    //    Entity ➜ DTO
+    PrescriptionDto toDto(Prescription prescription);
+
+    //    List<Entity> ➜ List<Dto>
+    List<PrescriptionDto> toDtoList(List<Prescription> prescriptions);
+
+    //    DTO ➜ Entity
+    Prescription toEntity(PrescriptionDto prescriptionDto);
+
+    //    List<DTO> ➜ List<Entity>(optional)
+    List<Prescription> toEntityList(List<PrescriptionDto> prescriptionDtos);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
     public static PrescriptionDto mapToDto(Prescription prescription) {
         return new PrescriptionDto(
                 prescription.getPrescriptionId(),
@@ -26,4 +70,5 @@ public class PrescriptionMapper {
                 prescriptionDto.getDoctorId()
         );
     }
+     */
 }

@@ -2,9 +2,52 @@ package com.project.mapper;
 
 import com.project.dto.DoctorDto;
 import com.project.entity.Doctor;
+import org.mapstruct.Mapper;
 
-public class DoctorMapper {
+import java.util.List;
 
+@Mapper(componentModel = "spring")
+public interface DoctorMapper {
+
+    //    Entity ➜ DTO
+    DoctorDto toDto(Doctor doctor);
+
+    //    List<Entity> ➜ List<Dto>
+    List<DoctorDto> toDtoList(List<Doctor>  doctors);
+
+    //    DTO ➜ Entity
+    Doctor toEntity(DoctorDto doctorDto);
+
+    //    List<DTO> ➜ List<Entity>(optional)
+    List<Doctor> toEntityList(List<DoctorDto>  doctorDtos);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
     public static DoctorDto mapToDto(Doctor doctor) {
         return new DoctorDto(
                 doctor.getDoctorId(),
@@ -24,4 +67,5 @@ public class DoctorMapper {
                 doctorDto.getEmailId()
         );
     }
+     */
 }

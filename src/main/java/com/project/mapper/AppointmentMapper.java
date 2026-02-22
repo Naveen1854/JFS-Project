@@ -47,22 +47,6 @@ public interface AppointmentMapper {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      *  public static AppointmentDto mapToDto(Appointment appointment) {
      *         return new AppointmentDto(
