@@ -92,7 +92,6 @@ public class PatientServiceImpl implements PatientService {
 	public PatientDto deletePatientById(Long patientId) {
 		Patient dbPatient = patientRepository.findById(patientId)
 				.orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + patientId));
-
 		PatientDto dto = patientMapper.toDto(dbPatient);
 
 		patientRepository.delete(dbPatient);
@@ -122,7 +121,7 @@ public class PatientServiceImpl implements PatientService {
 		return patientMapper.toDto(patient);
 	}
 
-	@Override
+	@Override 
 	public List<PatientDto> findPatientByGender(String gender) {
 		List<Patient> dbPatients = patientRepository.findByGender(gender);
 		return patientMapper.toDtoList(dbPatients);

@@ -2,16 +2,20 @@ package com.project.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.dto.AppointmentDto;
 import com.project.entity.Appointment;
+import com.project.entity.Doctor;
 import com.project.exception.AppointmentNotFoundException;
+import com.project.exception.DoctorNotFoundException;
 import com.project.exception.SlotAlreadyBookedException;
 import com.project.mapper.AppointmentMapper;
 import com.project.repository.AppointmentRepository;
+import com.project.repository.DoctorRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -24,6 +28,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	@Autowired
 	private AppointmentMapper appointmentMapper;
+	
+	@Autowired
+	private DoctorRepository doctorRepository;
 
 	/**
 	 * save the Appointment into database
@@ -84,11 +91,15 @@ public class AppointmentServiceImpl implements AppointmentService {
 		return deletedDto;
 	}
 
+	/**
+	 * Search Options
+	 */
+	
+	
 	@Override
 	public List<AppointmentDto> getAppointmentsByPatientId(Long patientId) {
 		List<Appointment> dbAppointments = appointmentRepository.findByPatientId(patientId);
 		return appointmentMapper.toDtoList(dbAppointments);
-
 	}
 
 	@Override
@@ -111,6 +122,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	@Override
 	public List<AppointmentDto> getDoctorSchedule(Long doctorId, LocalDate date) {
+		
+//		Optional<Doctor> doctor = doctorRepository.findById(doctorId);
+//		System.out.println("Doctor present? " + doctor.isPresent());
+		
+		doctorRepository.findById(doctorId)
+		.orElseThrow(() -> new DoctorNotFoundException("Doctor not found with Id: " + doctorId));
 		List<Appointment> dbAppointments = appointmentRepository.findByDoctorIdAndAppointmentDate(doctorId, date);
 		return appointmentMapper.toDtoList(dbAppointments);
 	}
