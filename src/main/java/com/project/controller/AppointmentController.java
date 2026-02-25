@@ -33,7 +33,6 @@ public class AppointmentController {
 		AppointmentDto savedAppointment = appointmentService.saveAppointment(appointmentDto);
 		SuccessResponse<AppointmentDto> response = new SuccessResponse<>("Appointment Saved Successfully",
 				HttpStatus.CREATED.value(), savedAppointment);
-		
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
@@ -42,7 +41,6 @@ public class AppointmentController {
 		List<AppointmentDto> appointments = appointmentService.getAllAppointments();
 		SuccessResponse<List<AppointmentDto>> response = new SuccessResponse<>("Appointments fetched Successfully",
 				HttpStatus.OK.value(), appointments);
-		
 		return ResponseEntity.ok(response);
 	}
 
@@ -51,7 +49,6 @@ public class AppointmentController {
 		AppointmentDto dbAppointment = appointmentService.findAppointmentById(appointmentId);
 		SuccessResponse<AppointmentDto> response = new SuccessResponse<>("Appointment fetched Successfuly",
 				HttpStatus.OK.value(), dbAppointment);
-		
 		return ResponseEntity.ok(response);
 	}
 
@@ -76,7 +73,7 @@ public class AppointmentController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@GetMapping("/search/{patientId}")
+	@GetMapping("/search/patient/{patientId}")
 	public ResponseEntity<SuccessResponse<List<AppointmentDto>>> getAppointmentsByPatientId(@PathVariable Long patientId){
 		List<AppointmentDto> appointmentsById = appointmentService.getAppointmentsByPatientId(patientId);
 		SuccessResponse<List<AppointmentDto>> response = new SuccessResponse<>(
@@ -87,7 +84,7 @@ public class AppointmentController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@GetMapping("/search/{doctorId}")
+	@GetMapping("/search/doctor/{doctorId}")
 	public ResponseEntity<SuccessResponse<List<AppointmentDto>>> getAppointmentsByDoctorId(@PathVariable Long doctorId){
 		List<AppointmentDto> appointmentsById =  appointmentService.getAppointmentsByDoctorId(doctorId);
 		SuccessResponse<List<AppointmentDto>> response = new SuccessResponse<>(

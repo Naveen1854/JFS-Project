@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,18 +20,16 @@ import com.project.repository.DoctorRepository;
 
 import jakarta.transaction.Transactional;
 
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class AppointmentServiceImpl implements AppointmentService {
 
-	@Autowired
-	private AppointmentRepository appointmentRepository;
+	private  final AppointmentRepository appointmentRepository;
 
-	@Autowired
-	private AppointmentMapper appointmentMapper;
-	
-	@Autowired
-	private DoctorRepository doctorRepository;
+	private final AppointmentMapper appointmentMapper;
+
+	private final DoctorRepository doctorRepository;
 
 	/**
 	 * save the Appointment into database

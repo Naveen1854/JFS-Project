@@ -23,7 +23,7 @@ public class PatientServiceImpl implements PatientService {
 		this.patientMapper = patientMapper;
 	}
 
-    /**
+    /*
 	@Autowired
 	private  PatientRepository patientRepository;
 
@@ -32,7 +32,7 @@ public class PatientServiceImpl implements PatientService {
     */
 
 
-	/**
+	/*
 	 * fetch all patients present inside database
 	 */
 	@Override
@@ -79,9 +79,7 @@ public class PatientServiceImpl implements PatientService {
 //		existingPatient.setAddress(newPatientDto.getAddress());
 
 		patientMapper.updatePatientFromDto(newPatientDto, existingPatient);
-
 		Patient updatedPatient = patientRepository.save(existingPatient);
-
 		return patientMapper.toDto(updatedPatient);
 	}
 
@@ -93,7 +91,6 @@ public class PatientServiceImpl implements PatientService {
 		Patient dbPatient = patientRepository.findById(patientId)
 				.orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + patientId));
 		PatientDto dto = patientMapper.toDto(dbPatient);
-
 		patientRepository.delete(dbPatient);
 		return dto;
 	}

@@ -2,7 +2,9 @@ package com.project.mapper;
 
 import com.project.dto.DoctorDto;
 import com.project.entity.Doctor;
+import org.mapstruct.MapMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ public interface DoctorMapper {
     List<Doctor> toEntityList(List<DoctorDto>  doctorDtos);
 
 
+    void updateDoctorFromDto(DoctorDto dto, @MappingTarget Doctor entity);
 
 
 
