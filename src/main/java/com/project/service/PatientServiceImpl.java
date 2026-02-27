@@ -57,7 +57,7 @@ public class PatientServiceImpl implements PatientService {
 	 * find the patient by using patient id
 	 */
 	@Override
-	public PatientDto findPatientById(Long patientId) {
+	public PatientDto getPatientById(Long patientId) {
 		Patient dbPatient = patientRepository.findById(patientId)
 				.orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + patientId));
 		return patientMapper.toDto(dbPatient);
@@ -68,7 +68,6 @@ public class PatientServiceImpl implements PatientService {
 	 */
 	@Override
 	public PatientDto updatePatientById(Long patientId, PatientDto newPatientDto) {
-
 		Patient existingPatient = patientRepository.findById(patientId)
 				.orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + patientId));
 

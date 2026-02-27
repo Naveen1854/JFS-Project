@@ -12,7 +12,7 @@ public interface DoctorService {
 
     public DoctorDto getDoctorById(Long doctorId);
 
-    public DoctorDto updateDoctorById(Long doctorId, DoctorDto doctorDto);
+    public DoctorDto updateDoctorById(Long doctorId, DoctorDto newDoctorDto);
 
     public DoctorDto deleteDoctorById(Long doctorId);
 }

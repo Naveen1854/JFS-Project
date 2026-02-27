@@ -2,8 +2,7 @@ package com.project.mapper;
 
 import java.util.List;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 import com.project.dto.PatientDto;
 import com.project.entity.Patient;
@@ -23,8 +22,9 @@ public interface PatientMapper {
 
 	// List<DTO> ➜ List<Entity> (optional)
 	List<Patient> toEntityList(List<PatientDto> patientDtos);
-	
-	
+
+    @Mapping(target = "patientId", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 	void updatePatientFromDto(PatientDto dto, @MappingTarget Patient entity);
 	
 	

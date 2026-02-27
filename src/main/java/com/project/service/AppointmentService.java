@@ -10,11 +10,11 @@ public interface AppointmentService {
 
 	public AppointmentDto saveAppointment(AppointmentDto appointmentDto);
 
-	public AppointmentDto findAppointmentById(Long appointmentId);
+	public AppointmentDto getAppointmentById(Long appointmentId);
 
 	public List<AppointmentDto> getAllAppointments();
 
-	public AppointmentDto updateAppointmentById(Long appintmentId, AppointmentDto appointmentDto);
+	public AppointmentDto updateAppointmentById(Long appointmentId, AppointmentDto appointmentDto);
 
 	public AppointmentDto deleteAppointmentById(Long appointmentId);
 

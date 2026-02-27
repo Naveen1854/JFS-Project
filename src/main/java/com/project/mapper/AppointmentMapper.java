@@ -2,10 +2,7 @@ package com.project.mapper;
 
 import java.util.List;
 
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import com.project.dto.AppointmentDto;
 import com.project.entity.Appointment;
@@ -26,6 +23,7 @@ public interface AppointmentMapper {
     List<Appointment> toEntityList(List<AppointmentDto>  appointmentDtos);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "appointmentId", ignore = true)
     void updateAppointmentFromDto(AppointmentDto appointmentDto, @MappingTarget Appointment entity);
 }
 

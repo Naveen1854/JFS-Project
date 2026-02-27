@@ -45,8 +45,8 @@ public class AppointmentController {
 	}
 
 	@GetMapping("/{appointmentId}")
-	public ResponseEntity<SuccessResponse<AppointmentDto>> findAppointmentById(@PathVariable Long appointmentId) {
-		AppointmentDto dbAppointment = appointmentService.findAppointmentById(appointmentId);
+	public ResponseEntity<SuccessResponse<AppointmentDto>> getAppointmentById(@PathVariable Long appointmentId) {
+		AppointmentDto dbAppointment = appointmentService.getAppointmentById(appointmentId);
 		SuccessResponse<AppointmentDto> response = new SuccessResponse<>("Appointment fetched Successfuly",
 				HttpStatus.OK.value(), dbAppointment);
 		return ResponseEntity.ok(response);
@@ -58,7 +58,6 @@ public class AppointmentController {
 		AppointmentDto updated = appointmentService.updateAppointmentById(appointmentId, newAppointmentDto);
 		SuccessResponse<AppointmentDto> response = new SuccessResponse<>("Appointment updated Successfully",
 				HttpStatus.OK.value(), updated);
-		
 		return ResponseEntity.ok(response);
 	}
 	
@@ -69,7 +68,6 @@ public class AppointmentController {
 				"Appointment Deleted Successfully",
 				HttpStatus.OK.value(),
 				deleted);
-		
 		return ResponseEntity.ok(response);
 	}
 	
@@ -80,7 +78,6 @@ public class AppointmentController {
 				"Appointments fetched by patient id successfully",
 				HttpStatus.OK.value(),
 				appointmentsById);
-		
 		return ResponseEntity.ok(response);
 	}
 	
@@ -90,8 +87,7 @@ public class AppointmentController {
 		SuccessResponse<List<AppointmentDto>> response = new SuccessResponse<>(
 				"Appointments fetched by doctor id successfully",
 				HttpStatus.OK.value(),
-				appointmentsById
-				);
+				appointmentsById);
 		return ResponseEntity.ok(response);
 	}
 	
@@ -112,8 +108,7 @@ public class AppointmentController {
 		SuccessResponse<List<AppointmentDto>> response = new SuccessResponse<>(
 				"Appointments fetched by status successfully",
 				HttpStatus.OK.value(),
-				appointmentsByStatus
-				);
+				appointmentsByStatus);
 		return ResponseEntity.ok(response);
 	}
 	
@@ -123,8 +118,7 @@ public class AppointmentController {
 		SuccessResponse<List<AppointmentDto>> response = new SuccessResponse<>(
 				"Doctor schedule retrieved successfully",
 				HttpStatus.OK.value(),
-				doctorSchedule
-				);
+				doctorSchedule);
 		return ResponseEntity.ok(response);
 	}
 }

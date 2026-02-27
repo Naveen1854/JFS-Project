@@ -11,7 +11,7 @@ public interface PatientService {
 
 	public List<PatientDto> getAllPatients();
 
-	public PatientDto findPatientById(Long patientId);
+	public PatientDto getPatientById(Long patientId);
 
 	public PatientDto updatePatientById(Long patientId, PatientDto newPatientDto);
 

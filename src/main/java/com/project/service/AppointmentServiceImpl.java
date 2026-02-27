@@ -26,9 +26,7 @@ import jakarta.transaction.Transactional;
 public class AppointmentServiceImpl implements AppointmentService {
 
 	private  final AppointmentRepository appointmentRepository;
-
 	private final AppointmentMapper appointmentMapper;
-
 	private final DoctorRepository doctorRepository;
 
 	/**
@@ -36,7 +34,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 	 */
 	@Override
 	public AppointmentDto saveAppointment(AppointmentDto appointmentDto) {
-
 		// 1. Prevent past booking
 		if (appointmentDto.getAppointmentDate().isBefore(LocalDate.now())) {
 			throw new IllegalArgumentException("Appointment date cannot be in the past");
@@ -44,11 +41,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 		// 2. Prevent double booking
 		boolean exists = appointmentRepository.existsByDoctorIdAndAppointmentDateAndAppointmentTime(
 				appointmentDto.getDoctorId(), appointmentDto.getAppointmentDate(), appointmentDto.getAppointmentTime());
-
 		if (exists) {
 			throw new SlotAlreadyBookedException("Doctor already booked for this time slot");
 		}
-
 		// DTO ➜ Entity
 		Appointment appointment = appointmentMapper.toEntity(appointmentDto);
 		Appointment saved = appointmentRepository.save(appointment);
@@ -60,7 +55,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	 * find the Appointment by using patient id
 	 */
 	@Override
-	public AppointmentDto findAppointmentById(Long appointmentId) {
+	public AppointmentDto getAppointmentById(Long appointmentId) {
 		Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(
 				() -> new AppointmentNotFoundException("Appointment with id: " + appointmentId + " not found!"));
 		return appointmentMapper.toDto(appointment);
@@ -93,8 +88,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 	/**
 	 * Search Options
 	 */
-	
-	
 	@Override
 	public List<AppointmentDto> getAppointmentsByPatientId(Long patientId) {
 		List<Appointment> dbAppointments = appointmentRepository.findByPatientId(patientId);
