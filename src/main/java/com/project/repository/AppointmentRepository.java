@@ -13,10 +13,10 @@ import com.project.entity.Appointment;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
 //	All Appointments of patient
-	List<Appointment> findByPatientId(Long patientId);
+	List<Appointment> findByPatientPatientId(Long patientId);
 
 //	All Appointments of a doctor
-	List<Appointment> findByDoctorId(Long doctorId);
+	List<Appointment> findByDoctorDoctorId(Long doctorId);
 
 //	Appointments on a particular date
 	List<Appointment> findByAppointmentDate(LocalDate appointmentDate);
@@ -25,8 +25,11 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 	List<Appointment> findByStatus(String status);
 
 //  Doctor schedule on a date (VERY COMMON)
-	List<Appointment> findByDoctorIdAndAppointmentDate(Long doctorId, LocalDate date);
+List<Appointment> findByDoctorDoctorIdAndAppointmentDate(Long doctorId, LocalDate appointmentDate);
 
 //  Prevent past booking
-	boolean existsByDoctorIdAndAppointmentDateAndAppointmentTime(Long doctorId, LocalDate appointmentDate, LocalTime time);
+boolean existsByDoctorDoctorIdAndAppointmentDateAndAppointmentTime(
+        Long doctorId,
+        LocalDate appointmentDate,
+        LocalTime appointmentTime);
 }

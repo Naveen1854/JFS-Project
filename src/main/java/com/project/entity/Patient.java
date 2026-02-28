@@ -3,6 +3,8 @@ package com.project.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,4 +21,15 @@ public class Patient {
 	private String contactNumber;
 	private String address;
 
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Appointment>  appointments;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Prescription>   prescriptions;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Bill> bills;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<PatientCare> patientCares;
 }

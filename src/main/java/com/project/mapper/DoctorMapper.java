@@ -30,25 +30,6 @@ public interface DoctorMapper {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
     public static DoctorDto mapToDto(Doctor doctor) {
         return new DoctorDto(

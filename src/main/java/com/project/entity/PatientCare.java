@@ -19,6 +19,12 @@ public class PatientCare {
 	private String careType;
 	private LocalDate careStartDate;
 	private LocalDate careEndDate;
-	private Long nurseId;
-	private Long patientId;
+
+    @ManyToOne
+    @JoinColumn(name = "nurse_id")
+    private Nurse nurse;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+	private Patient patient;
 }

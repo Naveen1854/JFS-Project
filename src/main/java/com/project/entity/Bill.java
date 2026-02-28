@@ -19,6 +19,9 @@ public class Bill {
 	private double billAmount;
 	private LocalDate billDate;
 	private String paymentStatus;
-	private Long patientId;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+	private Patient patient;
 
 }

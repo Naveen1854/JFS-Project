@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,9 +20,10 @@ public class Nurse {
 	private String phoneNumber;
 	private String emailId;
 
+	@ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
-//	@ManyToOne
-//    @JoinColumn(name = "department_department_id")
-//    private Department department;
-
+    @OneToMany(mappedBy = "nurse")
+    private List<PatientCare> patientCares;
 }

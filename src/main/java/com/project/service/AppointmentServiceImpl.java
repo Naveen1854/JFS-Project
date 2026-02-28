@@ -2,15 +2,12 @@ package com.project.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.dto.AppointmentDto;
 import com.project.entity.Appointment;
-import com.project.entity.Doctor;
 import com.project.exception.AppointmentNotFoundException;
 import com.project.exception.DoctorNotFoundException;
 import com.project.exception.SlotAlreadyBookedException;
@@ -39,7 +36,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 			throw new IllegalArgumentException("Appointment date cannot be in the past");
 		}
 		// 2. Prevent double booking
-		boolean exists = appointmentRepository.existsByDoctorIdAndAppointmentDateAndAppointmentTime(
+		boolean exists = appointmentRepository.existsByDoctorDoctorIdAndAppointmentDateAndAppointmentTime(
 				appointmentDto.getDoctorId(), appointmentDto.getAppointmentDate(), appointmentDto.getAppointmentTime());
 		if (exists) {
 			throw new SlotAlreadyBookedException("Doctor already booked for this time slot");
@@ -90,13 +87,13 @@ public class AppointmentServiceImpl implements AppointmentService {
 	 */
 	@Override
 	public List<AppointmentDto> getAppointmentsByPatientId(Long patientId) {
-		List<Appointment> dbAppointments = appointmentRepository.findByPatientId(patientId);
+		List<Appointment> dbAppointments = appointmentRepository.findByPatientPatientId(patientId);
 		return appointmentMapper.toDtoList(dbAppointments);
 	}
 
 	@Override
 	public List<AppointmentDto> getAppointmentsByDoctorId(Long doctorId) {
-		List<Appointment> dbAppointments = appointmentRepository.findByDoctorId(doctorId);
+		List<Appointment> dbAppointments = appointmentRepository.findByDoctorDoctorId(doctorId);
 		return appointmentMapper.toDtoList(dbAppointments);
 	}
 
@@ -113,14 +110,14 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public List<AppointmentDto> getDoctorSchedule(Long doctorId, LocalDate date) {
+	public List<AppointmentDto> getDoctorSchedule(Long doctorId, LocalDate appointmentDate) {
 		
 //		Optional<Doctor> doctor = doctorRepository.findById(doctorId);
 //		System.out.println("Doctor present? " + doctor.isPresent());
 		
 		doctorRepository.findById(doctorId)
 		.orElseThrow(() -> new DoctorNotFoundException("Doctor not found with Id: " + doctorId));
-		List<Appointment> dbAppointments = appointmentRepository.findByDoctorIdAndAppointmentDate(doctorId, date);
+		List<Appointment> dbAppointments = appointmentRepository.findByDoctorDoctorIdAndAppointmentDate(doctorId, appointmentDate);
 		return appointmentMapper.toDtoList(dbAppointments);
 	}
 

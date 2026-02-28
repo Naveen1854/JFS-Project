@@ -12,24 +12,24 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 @Configuration
 public class SwaggerConfig {
 
-	 @Bean
-	    OpenAPI customOpenAPI() {
+    @Bean
+    OpenAPI customOpenAPI() {
 
-	        final String securitySchemeName = "bearerAuth";
+        final String securitySchemeName = "bearerAuth";
 
-	        return new OpenAPI()
-	                .info(new Info()
-	                        .title("Hospital Management API's")
-	                        .version("1.0")
-	                        .description("Springboot CRUD API documentation Hospital project documentation"))
-	                .addSecurityItem(new SecurityRequirement()
-	                		.addList(securitySchemeName))
-	                .components(new Components()
-	                        .addSecuritySchemes(securitySchemeName,
-	                                new SecurityScheme()
-	                                        .name(securitySchemeName)
-	                                        .type(SecurityScheme.Type.HTTP)
-	                                        .scheme("bearer")
-	                                        .bearerFormat("JWT")));
-	    }
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Hospital Management API's")
+                        .version("1.0")
+                        .description("Springboot CRUD API documentation Hospital project documentation"))
+                .addSecurityItem(new SecurityRequirement()
+                        .addList(securitySchemeName))
+                .components(new Components()
+                        .addSecuritySchemes(securitySchemeName,
+                                new SecurityScheme()
+                                        .name(securitySchemeName)
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")));
+    }
 }

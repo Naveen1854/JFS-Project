@@ -19,6 +19,12 @@ public class Prescription {
 	private String medicineName;
 	private String dosage;
 	private LocalDate prescriptionDate;
-	private Integer patientId;
-	private Integer doctorId;
+
+    @ManyToOne
+    @JoinColumn(name="patient_id")
+    private Patient patient;
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+	private Doctor doctor;
 }

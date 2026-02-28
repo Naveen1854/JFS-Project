@@ -1,7 +1,6 @@
 package com.project.service;
 
 import com.project.dto.AppointmentDto;
-import com.project.entity.Appointment;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,6 +32,6 @@ public interface AppointmentService {
 
 	List<AppointmentDto> getAppointmentsByStatus(String status);
 	
-	List<AppointmentDto> getDoctorSchedule(Long doctorId, LocalDate date);
+	List<AppointmentDto> getDoctorSchedule(Long doctorId, LocalDate appointmentDate);
 	
 }
