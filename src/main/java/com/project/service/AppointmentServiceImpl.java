@@ -3,6 +3,10 @@ package com.project.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.project.entity.Doctor;
+import com.project.entity.Patient;
+import com.project.exception.PatientNotFoundException;
+import com.project.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,28 +29,39 @@ public class AppointmentServiceImpl implements AppointmentService {
 	private  final AppointmentRepository appointmentRepository;
 	private final AppointmentMapper appointmentMapper;
 	private final DoctorRepository doctorRepository;
+    private final PatientRepository patientRepository;
 
 	/**
 	 * save the Appointment into database
 	 */
-	@Override
-	public AppointmentDto saveAppointment(AppointmentDto appointmentDto) {
-		// 1. Prevent past booking
-		if (appointmentDto.getAppointmentDate().isBefore(LocalDate.now())) {
-			throw new IllegalArgumentException("Appointment date cannot be in the past");
-		}
-		// 2. Prevent double booking
-		boolean exists = appointmentRepository.existsByDoctorDoctorIdAndAppointmentDateAndAppointmentTime(
-				appointmentDto.getDoctorId(), appointmentDto.getAppointmentDate(), appointmentDto.getAppointmentTime());
-		if (exists) {
-			throw new SlotAlreadyBookedException("Doctor already booked for this time slot");
-		}
-		// DTO ➜ Entity
-		Appointment appointment = appointmentMapper.toEntity(appointmentDto);
-		Appointment saved = appointmentRepository.save(appointment);
-		// DTO ➜ Entity
-		return appointmentMapper.toDto(saved);
-	}
+    @Override
+    public AppointmentDto saveAppointment(AppointmentDto appointmentDto) {
+
+        // 1️ Prevent past booking
+        if (appointmentDto.getAppointmentDate().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("Appointment date cannot be in the past");
+        }
+        // 2️ Prevent double booking
+        boolean exists = appointmentRepository.existsByDoctorDoctorIdAndAppointmentDateAndAppointmentTime(
+                appointmentDto.getDoctorId(),
+                appointmentDto.getAppointmentDate(),
+                appointmentDto.getAppointmentTime()
+        );
+        if (exists) {
+            throw new SlotAlreadyBookedException("Doctor already booked for this time slot");
+        }
+        Patient patient = patientRepository.findById(appointmentDto.getPatientId())
+                .orElseThrow(() -> new PatientNotFoundException("Patient not found with id: " + appointmentDto.getPatientId()));
+        Doctor doctor = doctorRepository.findById(appointmentDto.getDoctorId())
+                .orElseThrow(() -> new DoctorNotFoundException("Doctor not found with id: " + appointmentDto.getDoctorId()));
+        // 4️ Convert DTO ➜ Entity
+        Appointment appointment = appointmentMapper.toEntity(appointmentDto);
+        // 5️ Set owning side relationships
+        appointment.setPatient(patient);
+        appointment.setDoctor(doctor);
+        Appointment saved = appointmentRepository.save(appointment);
+        return appointmentMapper.toDto(saved);
+    }
 
 	/**
 	 * find the Appointment by using patient id

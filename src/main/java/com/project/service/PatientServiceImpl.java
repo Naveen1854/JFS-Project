@@ -18,6 +18,7 @@ public class PatientServiceImpl implements PatientService {
 
 	private final PatientRepository patientRepository;
 	private final PatientMapper patientMapper;
+
 	public PatientServiceImpl(PatientRepository patientRepository, PatientMapper patientMapper) {
 		this.patientRepository = patientRepository;
 		this.patientMapper = patientMapper;
@@ -110,10 +111,8 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public PatientDto findPatientByPhone(String phoneNumber) {
-
 		Patient patient = patientRepository.findByContactNumber(phoneNumber)
 				.orElseThrow(() -> new PatientNotFoundException("Patient not found with phoneNumber: " + phoneNumber));
-
 		return patientMapper.toDto(patient);
 	}
 
