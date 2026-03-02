@@ -2,7 +2,7 @@ package com.project.mapper;
 
 import com.project.dto.PatientCareDto;
 import com.project.entity.PatientCare;
-import org.mapstruct.Mapper;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -10,9 +10,13 @@ import java.util.List;
 public interface PatientCareMapper {
 
     //    Entity ➜ DTO
+    @Mapping(source = "patient.patientId", target = "patientId")
+    @Mapping(source = "nurse.nurseId", target = "nurseId")
     PatientCareDto toDto(PatientCare patientCare);
 
     //    DTO ➜ Entity
+    @Mapping(target = "patient", ignore = true)
+    @Mapping(target = "nurse", ignore = true)
     PatientCare toEntity(PatientCareDto patientCareDto);
 
     //    List<Entity> ➜ List<Dto>
@@ -21,47 +25,8 @@ public interface PatientCareMapper {
     //    List<DTO> ➜ List<Entity>(optional)
     List<PatientCare> toEntityList(List<PatientCareDto> patientCaresDto);
 
+    @Mapping(target = "careId", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updatePatientCareFromDto(PatientCareDto dto, @MappingTarget PatientCare entity);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-    public static PatientCareDto mapToDto(PatientCare patientCare){
-        return new PatientCareDto(
-          patientCare.getCareId(),
-          patientCare.getCareType(),
-          patientCare.getCareStartDate(),
-          patientCare.getCareEndDate(),
-          patientCare.getNurseId(),
-          patientCare.getPatientId()
-        );
-    }
-
-    public static PatientCare mapToPatientCare(PatientCareDto patientCareDto){
-        return new PatientCare(
-                patientCareDto.getCareId(),
-                patientCareDto.getCareType(),
-                patientCareDto.getCareStartDate(),
-                patientCareDto.getCareEndDate(),
-                patientCareDto.getNurseId(),
-                patientCareDto.getPatientId()
-        );
-    }
-     */
 }

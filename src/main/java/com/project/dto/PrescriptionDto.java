@@ -15,6 +15,6 @@ public class PrescriptionDto {
 	private String medicineName;
 	private String dosage;
 	private LocalDate prescriptionDate;
-	private Integer patientId;
-	private Integer doctorId;
+	private Long patientId;
+	private Long doctorId;
 }

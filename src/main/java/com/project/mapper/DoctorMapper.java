@@ -25,30 +25,4 @@ public interface DoctorMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateDoctorFromDto(DoctorDto dto, @MappingTarget Doctor entity);
 
-
-
-
-
-
-    /**
-    public static DoctorDto mapToDto(Doctor doctor) {
-        return new DoctorDto(
-                doctor.getDoctorId(),
-                doctor.getDoctorName(),
-                doctor.getSpeciality(),
-                doctor.getPhoneNumber(),
-                doctor.getEmailId()
-        );
-    }
-
-    public static Doctor mapToDoctor(DoctorDto doctorDto) {
-        return new Doctor(
-                doctorDto.getDoctorId(),
-                doctorDto.getDoctorName(),
-                doctorDto.getSpeciality(),
-                doctorDto.getPhoneNumber(),
-                doctorDto.getEmailId()
-        );
-    }
-     */
 }
