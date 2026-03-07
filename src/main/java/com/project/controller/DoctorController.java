@@ -3,6 +3,7 @@ package com.project.controller;
 import com.project.dto.DoctorDto;
 import com.project.entity.Doctor;
 import com.project.service.DoctorService;
+import com.project.util.ErrorResponse;
 import com.project.util.SuccessResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -90,7 +91,7 @@ public class DoctorController {
     public ResponseEntity<SuccessResponse<List<DoctorDto>>> getBySpeciality(@RequestParam String speciality){
         List<DoctorDto> doctors = doctorService.getBySpeciality(speciality);
         SuccessResponse<List<DoctorDto>> response = new SuccessResponse<>(
-                "Doctors fetched successfully by specility",
+                "Doctors fetched successfully by speciality",
                 HttpStatus.OK.value(),
                 doctors
         );
@@ -113,6 +114,39 @@ public class DoctorController {
         DoctorDto doctor = doctorService.getByPhoneNumber(phoneNumber);
         SuccessResponse<DoctorDto> response = new SuccessResponse<>(
                 "Doctor fetched successfully by Phone number",
+                HttpStatus.OK.value(),
+                doctor
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/department/{departmentId}")
+    public ResponseEntity<SuccessResponse<List<DoctorDto>>> getByDepartmentDepartmentId(@PathVariable Long departmentId){
+        List<DoctorDto> doctor = doctorService.getByDepartmentDepartmentId(departmentId);
+        SuccessResponse<List<DoctorDto>> response = new SuccessResponse<>(
+                "Doctor fetched successfully by departmentId",
+                HttpStatus.OK.value(),
+                doctor
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<SuccessResponse<List<DoctorDto>>> getByDoctorNameAndSpeciality(@RequestParam String doctorName, @RequestParam String speciality){
+        List<DoctorDto> doctor =  doctorService.getByDoctorNameAndSpeciality(doctorName, speciality);
+        SuccessResponse<List<DoctorDto>> response = new SuccessResponse<>(
+                "Doctors fetched successfully by doctorName and speciality",
+                HttpStatus.OK.value(),
+                doctor
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/searchBySpecialityAndDepartment")
+    public ResponseEntity<SuccessResponse<List<DoctorDto>>>getBySpecialityAndDepartmentDepartmentId(@RequestParam String speciality, @RequestParam Long departmentId){
+        List<DoctorDto> doctor = doctorService.getBySpecialityAndDepartmentDepartmentId(speciality, departmentId);
+        SuccessResponse<List<DoctorDto>> response = new SuccessResponse<>(
+                "Doctors fetched successfully by speciality and departmentId",
                 HttpStatus.OK.value(),
                 doctor
         );
