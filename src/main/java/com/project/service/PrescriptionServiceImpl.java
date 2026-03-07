@@ -75,7 +75,6 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
 
     //  Extra methods
-
     @Override
     public List<PrescriptionDto> getPrescriptionsByPatientId(Integer patientId) {
         List<Prescription> prescriptions = prescriptionRepository.findByPatient_PatientId(patientId);

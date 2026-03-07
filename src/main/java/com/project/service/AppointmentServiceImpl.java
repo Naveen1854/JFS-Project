@@ -100,7 +100,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	/**
 	 * Search Options
 	 */
-	@Override
+
 	public List<AppointmentDto> getAppointmentsByPatientId(Long patientId) {
 		List<Appointment> dbAppointments = appointmentRepository.findByPatientPatientId(patientId);
 		return appointmentMapper.toDtoList(dbAppointments);

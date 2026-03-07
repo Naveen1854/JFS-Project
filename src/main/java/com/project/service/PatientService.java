@@ -19,15 +19,15 @@ public interface PatientService {
 
 	
 	
-	public List<PatientDto> findPatientByName(String name);
+	public List<PatientDto> getPatientByName(String name);
 
-	public PatientDto findPatientByPhone(String phoneNumber);
+	public PatientDto getPatientByPhone(String phoneNumber);
 
-	public List<PatientDto> findPatientByGender(String gender);
+	public List<PatientDto> getPatientByGender(String gender);
 
-	public List<PatientDto> findPatientByAgeBetween(int minAge, int maxAge);
+	public List<PatientDto> getPatientByAgeBetween(int minAge, int maxAge);
 
-	public List<PatientDto> findPatientByAddress(String address);
+	public List<PatientDto> getPatientByAddress(String address);
 
 
 }

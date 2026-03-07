@@ -103,33 +103,32 @@ public class PatientServiceImpl implements PatientService {
      */
 
 	@Override
-	public List<PatientDto> findPatientByName(String name) {
+	public List<PatientDto> getPatientByName(String name) {
 		List<Patient> dbPatients = patientRepository.findByPatientName(name);
-
 		return patientMapper.toDtoList(dbPatients);
 	}
 
 	@Override
-	public PatientDto findPatientByPhone(String phoneNumber) {
+	public PatientDto getPatientByPhone(String phoneNumber) {
 		Patient patient = patientRepository.findByContactNumber(phoneNumber)
 				.orElseThrow(() -> new PatientNotFoundException("Patient not found with phoneNumber: " + phoneNumber));
 		return patientMapper.toDto(patient);
 	}
 
 	@Override 
-	public List<PatientDto> findPatientByGender(String gender) {
+	public List<PatientDto> getPatientByGender(String gender) {
 		List<Patient> dbPatients = patientRepository.findByGender(gender);
 		return patientMapper.toDtoList(dbPatients);
 	}
 
 	@Override
-	public List<PatientDto> findPatientByAgeBetween(int minAge, int maxAge) {
+	public List<PatientDto> getPatientByAgeBetween(int minAge, int maxAge) {
 		List<Patient> dbPatients = patientRepository.findByAgeBetween(minAge, maxAge);
 		return patientMapper.toDtoList(dbPatients);
 	}
 
 	@Override
-	public List<PatientDto> findPatientByAddress(String address) {
+	public List<PatientDto> getPatientByAddress(String address) {
 		List<Patient> dbPatients = patientRepository.findByAddress(address);
 		return patientMapper.toDtoList(dbPatients);
 	}

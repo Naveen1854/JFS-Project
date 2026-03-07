@@ -1,6 +1,7 @@
 package com.project.controller;
 
 import com.project.dto.DoctorDto;
+import com.project.entity.Doctor;
 import com.project.service.DoctorService;
 import com.project.util.SuccessResponse;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/v1/doctors")
 public class DoctorController {
 
-    private DoctorService doctorService;
+    private final DoctorService doctorService;
 
     public DoctorController(DoctorService doctorService) {
         this.doctorService = doctorService;
@@ -70,6 +71,50 @@ public class DoctorController {
                 "Doctor deleted successfully by Id",
                 HttpStatus.OK.value(),
                 deleted
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/doctorName")
+    public ResponseEntity<SuccessResponse<List<DoctorDto>>> getByDoctorName(@RequestParam String doctorName){
+        List<DoctorDto> doctors = doctorService.getByDoctorName(doctorName);
+        SuccessResponse<List<DoctorDto>> response = new SuccessResponse<>(
+                "Doctors fetched successfully by name",
+                HttpStatus.OK.value(),
+                doctors
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/speciality")
+    public ResponseEntity<SuccessResponse<List<DoctorDto>>> getBySpeciality(@RequestParam String speciality){
+        List<DoctorDto> doctors = doctorService.getBySpeciality(speciality);
+        SuccessResponse<List<DoctorDto>> response = new SuccessResponse<>(
+                "Doctors fetched successfully by specility",
+                HttpStatus.OK.value(),
+                doctors
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/emailId")
+    public ResponseEntity<SuccessResponse<DoctorDto>> getByEmailId(@RequestParam String emailId){
+        DoctorDto doctor = doctorService.getByEmailId(emailId);
+        SuccessResponse<DoctorDto> response = new SuccessResponse<>(
+                "Doctor fetched successfully by emailId",
+                HttpStatus.OK.value(),
+                doctor
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/phoneNumber")
+    public ResponseEntity<SuccessResponse<DoctorDto>> getByPhoneNumber(@RequestParam String phoneNumber){
+        DoctorDto doctor = doctorService.getByPhoneNumber(phoneNumber);
+        SuccessResponse<DoctorDto> response = new SuccessResponse<>(
+                "Doctor fetched successfully by Phone number",
+                HttpStatus.OK.value(),
+                doctor
         );
         return ResponseEntity.ok(response);
     }

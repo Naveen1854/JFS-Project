@@ -102,11 +102,10 @@ public class PatientController {
 	     SEARCH OPERATIONS
 	   ---------------------------------------------
     */
-
     // GET /api/v1/patients/search/name/Ravi
     @GetMapping("/search/name/{name}")
     public ResponseEntity<SuccessResponse<List<PatientDto>>> getPatientByName(@PathVariable String name) {
-        List<PatientDto> patients = patientService.findPatientByName(name);
+        List<PatientDto> patients = patientService.getPatientByName(name);
         SuccessResponse<List<PatientDto>> response = new SuccessResponse<>("Patients fetched by name",
                 HttpStatus.OK.value(), patients);
         return ResponseEntity.ok(response);
@@ -115,7 +114,7 @@ public class PatientController {
     // GET /api/v1/patients/search/phone/9876543210
     @GetMapping("/search/phone/{phone}")
     public ResponseEntity<SuccessResponse<PatientDto>> getPatientByPhone(@PathVariable String phone) {
-        PatientDto patient = patientService.findPatientByPhone(phone);
+        PatientDto patient = patientService.getPatientByPhone(phone);
         SuccessResponse<PatientDto> response = new SuccessResponse<>("Patient fetched by phone number",
                 HttpStatus.OK.value(), patient);
         return ResponseEntity.ok(response);
@@ -124,7 +123,7 @@ public class PatientController {
     // GET /api/v1/patients/search/gender/male
     @GetMapping("/search/gender/{gender}")
     public ResponseEntity<SuccessResponse<List<PatientDto>>> getPatientByGender(@PathVariable String gender) {
-        List<PatientDto> patients = patientService.findPatientByGender(gender);
+        List<PatientDto> patients = patientService.getPatientByGender(gender);
         SuccessResponse<List<PatientDto>> response = new SuccessResponse<>("Patients fetched by gender",
                 HttpStatus.OK.value(), patients);
         return ResponseEntity.ok(response);
@@ -133,7 +132,7 @@ public class PatientController {
     // GET /api/v1/patients/search/age?min=20&max=40
     @GetMapping("/search/age")
     public ResponseEntity<SuccessResponse<List<PatientDto>>> getPatientByAgeRange(@RequestParam int min, @RequestParam int max) {
-        List<PatientDto> patients = patientService.findPatientByAgeBetween(min, max);
+        List<PatientDto> patients = patientService.getPatientByAgeBetween(min, max);
         SuccessResponse<List<PatientDto>> response = new SuccessResponse<>("Patients fetched by age range",
                 HttpStatus.OK.value(), patients);
         return ResponseEntity.ok(response);
@@ -142,7 +141,7 @@ public class PatientController {
     // GET /api/v1/patients/search/address/bangalore
     @GetMapping("/search/address/{address}")
     public ResponseEntity<SuccessResponse<List<PatientDto>>> getPatientByAddress(@PathVariable String address) {
-        List<PatientDto> patients = patientService.findPatientByAddress(address);
+        List<PatientDto> patients = patientService.getPatientByAddress(address);
         SuccessResponse<List<PatientDto>> response = new SuccessResponse<>("Patients fetched by address",
                 HttpStatus.OK.value(), patients);
         return ResponseEntity.ok(response);
