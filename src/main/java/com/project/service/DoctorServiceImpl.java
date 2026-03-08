@@ -1,18 +1,17 @@
 package com.project.service;
 
 import com.project.dto.DoctorDto;
-import com.project.dto.PrescriptionDto;
+import com.project.entity.Department;
 import com.project.entity.Doctor;
-import com.project.entity.Prescription;
+import com.project.exception.DepartmentNotFoundException;
 import com.project.exception.DoctorNotFoundException;
-import com.project.exception.PrescriptionNotFoundException;
 import com.project.mapper.DoctorMapper;
+import com.project.repository.DepartmentRepository;
 import com.project.repository.DoctorRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,6 +21,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
+    private final DepartmentRepository departmentRepository;
 
     /*
     @Autowired
@@ -35,6 +35,9 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public DoctorDto saveDoctor(DoctorDto doctorDto) {
         Doctor doctor = doctorMapper.toEntity(doctorDto);
+            Department department = departmentRepository.findById(doctorDto.getDepartmentId())
+                    .orElseThrow(() -> new DepartmentNotFoundException("Department not found with ID: " + doctorDto.getDepartmentId()));
+            doctor.setDepartment(department);
         Doctor saved = doctorRepository.save(doctor);
         return doctorMapper.toDto(saved);
     }

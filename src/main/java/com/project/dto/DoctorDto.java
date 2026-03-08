@@ -15,5 +15,6 @@ public class DoctorDto {
 	private String speciality;
 	private String phoneNumber;
 	private String emailId;
+    private Long departmentId;
 
 }

@@ -53,6 +53,22 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND);
 	}
 
+    @ExceptionHandler(DepartmentNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleDepartmentNotFound(DepartmentNotFoundException exception){
+        return buildErrorResponse(
+                exception.getMessage(),
+                HttpStatus.NOT_FOUND
+        );
+    }
+
+    @ExceptionHandler(DepartmentDeletionException.class)
+    public ResponseEntity<ErrorResponse> handleDepartmentDeletionException(DepartmentDeletionException exception){
+        return buildErrorResponse(
+          exception.getMessage(),
+          HttpStatus.CONFLICT
+        );
+    }
+
 //    @ExceptionHandler(MethodArgumentNotValidException.class)
 //    public ResponseEntity<ErrorResponse> handleValidationException(
 //            MethodArgumentNotValidException ex) {

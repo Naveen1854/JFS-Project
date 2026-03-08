@@ -2,7 +2,7 @@ package com.project.mapper;
 
 import com.project.dto.DepartmentDto;
 import com.project.entity.Department;
-import org.mapstruct.Mapper;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -21,6 +21,10 @@ public interface DepartmentMapper {
 
     //    List<DTO> ➜ List<Entity>(optional)
     List<Department> toEntityList(List<DepartmentDto>  departmentDtos);
+
+    @Mapping(target = "departmentId", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateDepartmentFromDto(DepartmentDto dto, @MappingTarget Department entity);
 
 
 

@@ -14,7 +14,6 @@ public class BillDto {
     private double billAmount;
     private LocalDate billDate;
     private String paymentStatus;
-
     private Long patientId;
 
 }

@@ -10,12 +10,14 @@ import java.util.List;
 public interface DoctorMapper {
 
     //    Entity ➜ DTO
+    @Mapping(source = "department.departmentId", target = "departmentId")
     DoctorDto toDto(Doctor doctor);
 
     //    List<Entity> ➜ List<Dto>
     List<DoctorDto> toDtoList(List<Doctor>  doctors);
 
     //    DTO ➜ Entity
+    @Mapping(target = "department", ignore = true)
     Doctor toEntity(DoctorDto doctorDto);
 
     //    List<DTO> ➜ List<Entity>(optional)

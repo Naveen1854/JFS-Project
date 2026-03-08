@@ -2,7 +2,7 @@ package com.project.mapper;
 
 import com.project.dto.NurseDto;
 import com.project.entity.Nurse;
-import org.mapstruct.Mapper;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -22,6 +22,10 @@ public interface NurseMapper {
     //    List<DTO> ➜ List<Entity>(optional)
     List<Nurse> toEntityList(List<NurseDto> nurses);
 
+    @Mapping(target = "nurseId", ignore = true)
+    @Mapping(target = "department", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateNurseFromDto(NurseDto dto, @MappingTarget Nurse entity);
 
 
 

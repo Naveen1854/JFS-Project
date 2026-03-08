@@ -1,9 +1,7 @@
 package com.project.controller;
 
 import com.project.dto.DoctorDto;
-import com.project.entity.Doctor;
 import com.project.service.DoctorService;
-import com.project.util.ErrorResponse;
 import com.project.util.SuccessResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -131,7 +129,7 @@ public class DoctorController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/getByDoctorNameAndSpeciality")
     public ResponseEntity<SuccessResponse<List<DoctorDto>>> getByDoctorNameAndSpeciality(@RequestParam String doctorName, @RequestParam String speciality){
         List<DoctorDto> doctor =  doctorService.getByDoctorNameAndSpeciality(doctorName, speciality);
         SuccessResponse<List<DoctorDto>> response = new SuccessResponse<>(

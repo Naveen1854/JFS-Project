@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NurseDto {
 
-	private Long nurseId;
-	private String nurseName;
-	private String phoneNumber;
-	private String emailId;
-
-//	private Department department;
+    private Long nurseId;
+    private String nurseName;
+    private String phoneNumber;
+    private String emailId;
+    private Long departmentId;
 }
