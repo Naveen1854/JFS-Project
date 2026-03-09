@@ -2,7 +2,7 @@ package com.project.mapper;
 
 import com.project.dto.BillDto;
 import com.project.entity.Bill;
-import org.mapstruct.Mapper;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -21,6 +21,10 @@ public interface BillMapper {
     //    List<DTO> ➜ List<Entity>(optional)
     List<Bill> toEntityList(List<BillDto> billDtos);
 
+    @Mapping(target = "paymentId", ignore = true)
+    @Mapping(target = "patient", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateBillFromDto(BillDto dto, @MappingTarget Bill entity);
 
 
 
