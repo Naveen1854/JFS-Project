@@ -9,13 +9,15 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface BillMapper {
 
-    //    Entity ➜ DTO
+    //    Entity ➜
+    @Mapping(source = "patient.patientId", target = "patientId")
     BillDto toDto(Bill bill);
 
     //    List<Entity> ➜ List<Dto>
     List<BillDto> toDtoList(List<Bill> bills);
 
     //    DTO ➜ Entity
+    @Mapping(source = "patientId", target = "patient.patientId")
     Bill toEntity(BillDto billDto);
 
     //    List<DTO> ➜ List<Entity>(optional)
