@@ -1,0 +1,58 @@
+<h2 class="text-center text-warning fw-bold mt-4">Update Doctor Details</h2>
+<hr class="w-25 mx-auto border-warning" />
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 p-5 update-form-card">
+
+        <div *ngIf="successMessage" class="alert alert-success text-center fw-bold">
+            {{ successMessage }}
+        </div>
+
+
+        <form (ngSubmit)="onSubmit()" #doctorForm="ngForm">
+
+            <!-- Doctor Name -->
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Doctor Name</label>
+                <input type="text" class="form-control form-control-lg" [(ngModel)]="doctor.doctorName"
+                    name="doctorName" placeholder="Enter Doctor Name" />
+            </div>
+
+            <!-- Speciality -->
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Speciality</label>
+                <input type="text" class="form-control form-control-lg" [(ngModel)]="doctor.speciality"
+                    name="speciality" placeholder="Enter Speciality" />
+            </div>
+
+            <!-- Phone Number -->
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Phone Number</label>
+                <input type="number" class="form-control form-control-lg" [(ngModel)]="doctor.phoneNumber"
+                    name="phoneNumber" placeholder="Enter Phone Number" />
+            </div>
+
+            <!-- Email -->
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Email Id</label>
+                <input type="email" class="form-control form-control-lg" [(ngModel)]="doctor.emailId" name="emailId"
+                    placeholder="Enter Email Id" />
+            </div>
+
+            <!-- Department -->
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Department Id</label>
+                <input type="number" class="form-control form-control-lg" [(ngModel)]="doctor.departmentId"
+                    name="departmentId" placeholder="Enter Department Id" />
+            </div>
+
+            <!-- Button -->
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-warning btn-lg px-5 shadow-sm">
+                    Update Doctor
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

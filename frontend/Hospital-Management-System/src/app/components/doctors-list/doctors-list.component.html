@@ -1,0 +1,45 @@
+<h1 class="text-center text-warning fw-bold mt-4">Available Doctors</h1>
+<hr class="w-50 mx-auto" />
+
+<div class="container mt-4">
+  <div class="card shadow-lg border-0 p-4">
+
+    <table class="table table-hover table-bordered align-middle text-center">
+
+      <thead class="table-dark">
+        <tr>
+          <th>Doctor ID</th>
+          <th>Doctor Name</th>
+          <th>Speciality</th>
+          <th>Phone Number</th>
+          <th>Email Id</th>
+          <th>Department</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let doctor of doctors | async">
+          <td class="fw-bold text-primary">{{ doctor.doctorId }}</td>
+          <td class="fw-semibold">{{ doctor.doctorName }}</td>
+          <td class="text-success fw-semibold">{{ doctor.speciality }}</td>
+          <td class="text-secondary">{{ doctor.phoneNumber }}</td>
+          <td class="text-primary">{{ doctor.emailId }}</td>
+          <td class="fw-semibold text-dark">{{ doctor.departmentId }}</td>
+
+          <td>
+            <button class="btn btn-warning btn-sm me-2"
+                    (click)="editWithDoctorId(doctor.doctorId)">
+              <i class="bi bi-pencil-square"></i> Edit
+            </button>
+
+            <button class="btn btn-danger btn-sm"
+                    (click)="deleteDoctor(doctor.doctorId)">
+              <i class="bi bi-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

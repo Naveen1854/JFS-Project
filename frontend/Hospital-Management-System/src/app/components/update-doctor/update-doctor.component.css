@@ -1,0 +1,14 @@
+.update-form-card {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+}
+
+input {
+  border-radius: 10px;
+}
+
+input:focus {
+  box-shadow: 0 0 5px rgba(255,193,7,0.6);
+  border-color: #ffc107;
+}

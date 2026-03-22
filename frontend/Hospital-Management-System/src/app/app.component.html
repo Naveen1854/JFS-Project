@@ -1,0 +1,102 @@
+<div class="bg-warning text-dark text-center py-5 shadow-sm">
+  <h1 class="fw-bold">Apollo Hospitals Management System</h1>
+  <p class="lead">Quality Care | Trusted Doctors | Advanced Treatment</p>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg py-3">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold fs-3 text-warning" routerLink="/">
+      Apollo HMS
+    </a>
+
+    <button class="navbar-toggler border-0 shadow-none" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menu -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+
+        <li class="nav-item mx-2">
+          <a class="btn btn-outline-warning fw-semibold px-2 py-2 shadow-sm rounded-pill" routerLink="/doctors-list">
+            Doctors
+          </a>
+        </li>
+
+        <li class="nav-item mx-2">
+          <a class="btn btn-outline-warning fw-semibold px-2 py-2 shadow-sm rounded-pill" routerLink="/createDoctor">
+            + Add Doctor
+          </a>
+        </li>
+
+        <li class="nav-item mx-2">
+          <a class="nav-link nav-hover fw-semibold px-3 py-2" href="#">
+            Departments
+          </a>
+        </li>
+
+        <li class="nav-item mx-2">
+          <a class="nav-link nav-hover fw-semibold px-3 py-2" href="#">
+            Patients
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- ROUTER OUTLET -->
+<div class="container mt-4 mb-5">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- FEATURE SECTION -->
+<div class="container mt-5">
+  <div class="row text-center">
+
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0 p-4">
+        <h4 class="text-primary">Expert Doctors</h4>
+        <p>Our hospital has highly qualified and experienced doctors in all specialities.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0 p-4">
+        <h4 class="text-success">Advanced Equipment</h4>
+        <p>We use modern technology and advanced medical equipment for better treatment.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0 p-4">
+        <h4 class="text-danger">24/7 Emergency</h4>
+        <p>Emergency services are available 24 hours a day for patient safety.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ABOUT SECTION -->
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 p-4">
+    <h2 class="text-center text-primary">About Apollo Hospital</h2>
+    <p class="text-center">
+      Apollo Hospital Management System helps manage doctors, patients, departments, and appointments easily.
+      This project is built using Angular and Spring Boot.
+    </p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="bg-dark text-white text-center mt-5 p-4">
+  <h5 class="mb-2">Apollo Hospital Management System</h5>
+  <p class="mb-0">© 2026 All Rights Reserved | Developed by Naveen</p>
+</div>
